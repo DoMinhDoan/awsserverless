@@ -94,25 +94,25 @@ functions:
 #      - cloudwatchLog: '/aws/lambda/hello'
 #      - cognitoUserPool:
 #          pool: MyUserPool
-#          trigger: PreSignUp
+         # trigger: PreSignUp
   getCatById:
     handler: controllers/cat.getCatById
     events:
      - http:
          path: cat/{id}
          method: get
-  updateCatById:
-    handler: controllers/cat.updateCatById
-    events:
-     - http:
-         path: cat/{id}
-         method: put
-  deleteCatById:
-    handler: controllers/cat.deleteCatById
-    events:
-     - http:
-         path: cat/{id}
-         method: delete
+  # updateCatById:
+    # handler: controllers/cat.updateCatById
+    # events:
+     # - http:
+         # path: cat/{id}
+         # method: put
+  # deleteCatById:
+    # handler: controllers/cat.deleteCatById
+    # events:
+     # - http:
+         # path: cat/{id}
+         # method: delete
   # getCatAll:
     # handler: controllers/cat.getCatAll
     # events:

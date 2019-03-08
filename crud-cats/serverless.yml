@@ -101,24 +101,24 @@ functions:
      - http:
          path: cat/{id}
          method: get
-  # updateCatById:
-    # handler: controllers/cat.updateCatById
-    # events:
-     # - http:
-         # path: cat/{id}
-         # method: put
-  # deleteCatById:
-    # handler: controllers/cat.deleteCatById
-    # events:
-     # - http:
-         # path: cat/{id}
-         # method: delete
-  # getCatAll:
-    # handler: controllers/cat.getCatAll
-    # events:
-     # - http:
-         # path: cat/all
-         # method: get
+  updateCatById:
+    handler: controllers/cat.updateCatById
+    events:
+     - http:
+         path: catu/{id}
+         method: put
+  deleteCatById:
+    handler: controllers/cat.deleteCatById
+    events:
+     - http:
+         path: catd/{id}
+         method: delete
+  getCatAll:
+    handler: controllers/cat.getCatAll
+    events:
+     - http:
+         path: cat
+         method: get
 
 #    Define function environment variables here
 #    environment:

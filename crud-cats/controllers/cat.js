@@ -38,12 +38,12 @@ class Cat {
 	}
 	
 	
-	// getAll(callback) {
-		// return this.tableSchema
-			// .scan()
-			// .loadAll()
-			// .exec(callback);
-	// }
+	getAll(callback) {
+		return this.tableSchema
+			.scan()
+			.loadAll()
+			.exec(callback);
+	}
 	
 	// getAll(callback) {
 		// return this.tableSchema.scan().exec(callback);
@@ -113,52 +113,75 @@ module.exports = {
 		}); 
 	},
 	
-	// updateCatById: (event, context, callback) => {
+	updateCatById: (event, context, callback) => {
 		
-		// let catId = event.pathParameters.id;
+		let catId = event.pathParameters.id;
 		
-		// if (event.body) {
-			// event = JSON.parse(event.body);
-		// }
+		if (event.body) {
+			event = JSON.parse(event.body);
+		}
 		
 		
-		// let catItem = {
-			// id: catId,
-			// name: event.name,
-			// kind: event.kind,
-		// };
+		let catItem = {
+			id: catId,
+			name: event.name,
+			kind: event.kind,
+		};
 		
-		// m_cat.update(catItem, (err, catResult) => {
-			// if(err) {
-				// return callback(null, {
-					// statusCode: 500,
-					// body: JSON.stringify(err)
-				// });
-			// }
-			// return callback(null, {
-				// statusCode: 200,
-				// body: JSON.stringify("Update cat successfully.")
-			// });
+		m_cat.update(catItem, (err, catResult) => {
+			if(err) {
+				return callback(null, {
+					statusCode: 500,
+					body: JSON.stringify(err)
+				});
+			}
+			return callback(null, {
+				statusCode: 200,
+				body: JSON.stringify("Update cat successfully.")
+			});
 			
-		// }); 
-	// },
+		});
+	},
 	
-	// deleteCatById: (event, context, callback) => {
+	deleteCatById: (event, context, callback) => {
 		
-		// let catId = event.pathParameters.id;		
+		let catId = event.pathParameters.id;		
 			
-		// m_cat.deleteById(catId, (err) => {
-			// if(err) {
-				// return callback(null, {
-					// statusCode: 500,
-					// body: JSON.stringify(err)
-				// });
-			// }
-			// return callback(null, {
-				// statusCode: 200,
-				// body: JSON.stringify("Delete cat successfully.")
-			// });
+		m_cat.deleteById(catId, (err) => {
+			if(err) {
+				return callback(null, {
+					statusCode: 500,
+					body: JSON.stringify(err)
+				});
+			}
+			return callback(null, {
+				statusCode: 200,
+				body: JSON.stringify("Delete cat successfully.")
+			});
 			
-		// }); 
-	// }
+		}); 
+	},
+	
+	getCatAll: (event, context, callback) => {		
+					
+		m_cat.getAll((err, catResult) => {
+			if(err) {
+				return callback(null, {
+					statusCode: 500,
+					body: JSON.stringify(err)
+				});
+			}
+			if(!catResult) {
+				return callback(null, {
+					statusCode: 404,
+					body: JSON.stringify("Cat not found!")
+				});
+			}
+			return callback(null, {
+				statusCode: 200,
+				body: JSON.stringify(catResult.Items)
+			});
+			
+		}); 
+	},
 };

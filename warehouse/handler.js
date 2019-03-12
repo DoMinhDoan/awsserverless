@@ -1,4 +1,7 @@
- 'use strict';
+'use strict';
+
+var AWS = require('aws-sdk');
+const lambda = new AWS.Lambda();
 
 const addProduct = require('./handlers/create');
 const listProduct = require('./handlers/list');
@@ -38,7 +41,15 @@ const remove = (event, context, callback) => {
 	const id = event.pathParameters.id;
 	removeProduct(id)
 		.then(result => {
-			const response = { body: JSON.stringify(result) };
+			let params = {
+				FunctionName: 'warehouse-dev-list',
+				InvocationType: 'RequestResponse',
+				Payload: ""
+			};
+			return lambda.invoke(params).promise();
+		})
+		.then(result => {
+			const response = { body: JSON.stringify(JSON.parse(result.Payload)) };
 			callback(null, response);
 		})
 		.catch(callback);

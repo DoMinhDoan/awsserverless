@@ -1,4 +1,4 @@
-service: stockup
+service: warehouse
 provider:
   name: aws
   runtime: nodejs8.10
@@ -25,28 +25,24 @@ functions:
       - http:
           path: products
           method: post
-          cors: true
   list:
     handler: handler.list
     events:
       - http:
           path: products
           method: get
-          cors: true
   view:
     handler: handler.view
     events:
       - http:
           path: products/{id}
           method: get
-          cors: true
   remove:
     handler: handler.remove
     events:
       - http:
           path: products/{id}
           method: delete
-          cors: true
 
 resources:
   Resources:
